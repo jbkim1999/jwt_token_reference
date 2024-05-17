@@ -18,7 +18,6 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-
     // string -> encoded base 64 -> generate key by applying an appropriate HMAC algorithm
     // DON'T EXPOSE THIS IN A REAL PROJECT
     private static final String SECRET_KEY_STRING = "jbjbjb"; //
@@ -42,7 +41,7 @@ public class JwtService {
                 .claims(extraClaims)
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 10))
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 10)) // 10 seconds
                 .signWith(getKeyFromBase64EncodedKey(encodeBase64SecretKey(SECRET_KEY_STRING)))
                 .compact();
     }
